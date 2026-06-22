@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Citizen Survey – Key Stats</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: transparent;
+    }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding: 1rem 0;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 0.5px solid rgba(0,0,0,0.12);
+      border-radius: 12px;
+      padding: 1.1rem 1.25rem;
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .card-label {
+      font-size: 12px;
+      color: #6b6b6b;
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    .card-value {
+      font-size: 26px;
+      font-weight: 500;
+      color: #1a1a1a;
+      margin-bottom: 12px;
+    }
+
+    .card-value span {
+      font-size: 15px;
+      color: #6b6b6b;
+      font-weight: 400;
+    }
+
+    .progress-track {
+      height: 6px;
+      background: #eeeeee;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #6B0000;
+      border-radius: 999px;
+    }
+
+    .donut-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 4px;
+    }
+
+    .legend {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 12px;
+      color: #6b6b6b;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .legend-swatch {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 480px) {
+      .stats { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="stats">
+
+  <div class="card">
+    <p class="card-label">General air quality rate</p>
+    <p class="card-value">47.1 <span>/ 100</span></p>
+    <div class="progress-track">
+      <div class="progress-fill" style="width: 47.1%;"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <p class="card-label">Does speed reduction increase air quality?</p>
+    <div class="donut-row">
+      <canvas id="chart1" width="64" height="64" role="img" aria-label="Donut chart: 47.1% yes, 52.9% no">47.1% yes, 52.9% no.</canvas>
+      <div class="legend">
+        <span class="legend-item"><span class="legend-swatch" style="background:#6B0000;"></span>Yes 47.1%</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:#B4B2A9;"></span>No 52.9%</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <p class="card-label">More roads at 30 km/h?</p>
+    <div class="donut-row">
+      <canvas id="chart2" width="64" height="64" role="img" aria-label="Donut chart: 47.1% yes, 52.9% no for more 30km/h roads">47.1% yes, 52.9% no.</canvas>
+      <div class="legend">
+        <span class="legend-item"><span class="legend-swatch" style="background:#6B0000;"></span>Yes 47.1%</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:#B4B2A9;"></span>No 52.9%</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const chartConfig = (id) => new Chart(document.getElementById(id), {
+    type: 'doughnut',
+    data: {
+      labels: ['Yes', 'No'],
+      datasets: [{
+        data: [47.1, 52.9],
+        backgroundColor: ['#6B0000', '#B4B2A9'],
+        borderWidth: 0
+      }]
+    },
+    options: {
+      responsive: false,
+      cutout: '70%',
+      plugins: { legend: { display: false }, tooltip: { enabled: false } },
+      animation: { animateRotate: true, duration: 800 }
+    }
+  });
+
+  chartConfig('chart1');
+  chartConfig('chart2');
+</script>
+
+</body>
+</html>
